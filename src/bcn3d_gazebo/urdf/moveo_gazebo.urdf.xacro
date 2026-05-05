@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<robot name="bcn3d_moveo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Pull in the geometry, gripper mimics, and camera -->
+  <xacro:include filename="$(find bcn3d_description)/urdf/moveo.urdf.xacro"/>
+
+  <!-- Gazebo-only fixed base. RViz/MoveIt keep using the plain description,
+       but physics needs the arm base anchored to the world. -->
+  <link name="world"/>
+  <joint name="world_to_base_link" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <!-- Disable gravity on every arm link. Real motors hold position;
+       we don't need to simulate gravity collapse to test motion planning. -->
+  <gazebo reference="base_link"><gravity>false</gravity></gazebo>
+  <gazebo reference="Link_1"><gravity>false</gravity></gazebo>
+  <gazebo reference="Link_2"><gravity>false</gravity></gazebo>
+  <gazebo reference="Link_3"><gravity>false</gravity></gazebo>
+  <gazebo reference="Link_4"><gravity>false</gravity></gazebo>
+  <gazebo reference="Link_5"><gravity>false</gravity></gazebo>
+  <gazebo reference="Gripper_Servo_Gear"><gravity>false</gravity></gazebo>
+  <gazebo reference="Gripper_Idol_Gear"><gravity>false</gravity></gazebo>
+  <gazebo reference="Tip_Gripper_Servo"><gravity>false</gravity></gazebo>
+  <gazebo reference="Tip_Gripper_Idol"><gravity>false</gravity></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Servo"><gravity>false</gravity></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Idol"><gravity>false</gravity></gazebo>
+
+  <!-- Implicit spring damper for solver stability -->
+  <gazebo reference="Joint_1"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Joint_2"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Joint_3"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Joint_4"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Joint_5"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Gripper_Servo_Gear_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Gripper_Idol_Gear_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Tip_Gripper_Servo_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Tip_Gripper_Idol_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Servo_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Idol_Joint"><implicitSpringDamper>true</implicitSpringDamper></gazebo>
+
+  <!-- The gripper linkage is approximated as a URDF tree plus mimic joints.
+       Keep self-collision off so the fake linkage does not chatter against itself. -->
+  <gazebo reference="Gripper_Servo_Gear"><selfCollide>false</selfCollide></gazebo>
+  <gazebo reference="Gripper_Idol_Gear"><selfCollide>false</selfCollide></gazebo>
+  <gazebo reference="Tip_Gripper_Servo"><selfCollide>false</selfCollide></gazebo>
+  <gazebo reference="Tip_Gripper_Idol"><selfCollide>false</selfCollide></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Servo"><selfCollide>false</selfCollide></gazebo>
+  <gazebo reference="Pivot_Arm_Gripper_Idol"><selfCollide>false</selfCollide></gazebo>
+
+  <!-- ros2_control block — Gazebo hardware variant -->
+  <ros2_control name="MoveoGazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="Joint_1">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Joint_2">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Joint_3">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Joint_4">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Joint_5">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="Gripper_Servo_Gear_Joint">
+      <command_interface name="position"/>
+      <state_interface name="position">
+        <param name="initial_value">0.0</param>
+      </state_interface>
+      <state_interface name="velocity"/>
+    </joint>
+    <!-- Mimic joints (Tip_*, Idol_*, Pivot_*) are NOT in ros2_control.
+         The roboticsgroup_upatras_gazebo_mimic_joint_plugin handles them at
+         the physics level. -->
+  </ros2_control>
+
+  <!-- Tell Gazebo to load gazebo_ros2_control with our YAML.
+       robot_param_node tells the plugin to fetch the URDF from
+       robot_state_publisher's parameter instead of via CLI override
+       (which fails with rcl's argument parser on large URDFs). -->
+  <gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+      <robot_param>robot_description</robot_param>
+      <robot_param_node>robot_state_publisher</robot_param_node>
+      <parameters>$(find bcn3d_gazebo)/config/controllers.yaml</parameters>
+    </plugin>
+
+    <!-- Mimic joint plugins — make Gazebo enforce the mimic relationships
+         that URDF declares. One <plugin> block per mimic joint. -->
+    <plugin name="mimic_tip_servo" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+      <joint>Gripper_Servo_Gear_Joint</joint>
+      <mimicJoint>Tip_Gripper_Servo_Joint</mimicJoint>
+      <multiplier>1.0</multiplier>
+      <offset>0.0</offset>
+      <maxEffort>2.0</maxEffort>
+      <sensitiveness>0.003</sensitiveness>
+    </plugin>
+    <plugin name="mimic_idol_gear" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+      <joint>Gripper_Servo_Gear_Joint</joint>
+      <mimicJoint>Gripper_Idol_Gear_Joint</mimicJoint>
+      <multiplier>-1.0</multiplier>
+      <offset>0.0</offset>
+      <maxEffort>2.0</maxEffort>
+      <sensitiveness>0.003</sensitiveness>
+    </plugin>
+    <plugin name="mimic_tip_idol" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+      <joint>Gripper_Servo_Gear_Joint</joint>
+      <mimicJoint>Tip_Gripper_Idol_Joint</mimicJoint>
+      <multiplier>-1.0</multiplier>
+      <offset>0.0</offset>
+      <maxEffort>2.0</maxEffort>
+      <sensitiveness>0.003</sensitiveness>
+    </plugin>
+    <plugin name="mimic_pivot_servo" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+      <joint>Gripper_Servo_Gear_Joint</joint>
+      <mimicJoint>Pivot_Arm_Gripper_Servo_Joint</mimicJoint>
+      <multiplier>1.0</multiplier>
+      <offset>0.0</offset>
+      <maxEffort>2.0</maxEffort>
+      <sensitiveness>0.003</sensitiveness>
+    </plugin>
+    <plugin name="mimic_pivot_idol" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+      <joint>Gripper_Servo_Gear_Joint</joint>
+      <mimicJoint>Pivot_Arm_Gripper_Idol_Joint</mimicJoint>
+      <multiplier>-1.0</multiplier>
+      <offset>0.0</offset>
+      <maxEffort>2.0</maxEffort>
+      <sensitiveness>0.003</sensitiveness>
+    </plugin>
+  </gazebo>
+
+  <!-- Camera sensor temporarily disabled — re-enable with realsense xacro
+       once URDF size is no longer an issue.
+  <gazebo reference="camera_link">
+    <sensor name="camera" type="depth">
+      <update_rate>30</update_rate>
+      <camera name="camera">
+        <horizontal_fov>1.5009</horizontal_fov>
+        <image>
+          <width>848</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <frame_name>camera_depth_optical_frame</frame_name>
+        <camera_name>camera</camera_name>
+        <pointCloudCutoff>0.1</pointCloudCutoff>
+        <pointCloudCutoffMax>5.0</pointCloudCutoffMax>
+      </plugin>
+    </sensor>
+  </gazebo>
+  -->
+
+</robot>

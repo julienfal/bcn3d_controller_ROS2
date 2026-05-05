@@ -1,0 +1,5 @@
+keys.sh
+onshape/*.stl
+onshape/*.part
+onshape/scad/
+onshape/__pycache__/

@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: bcn3d_description
+    relative_path: urdf/moveo.urdf.xacro
+  srdf:
+    relative_path: config/bcn3d_moveo.srdf
+  package_settings:
+    author_name: julien falgayrettes
+    author_email: julien.falgayrettes@gmail.com
+    generated_timestamp: 1777991607
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

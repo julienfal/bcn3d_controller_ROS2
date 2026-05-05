@@ -1,0 +1,540 @@
+<robot name="bcn3d_moveo">
+<link name="base_link"></link>
+<joint name="base_link_to_base" type="fixed">
+<parent link="base_link"/>
+<child link="base_arm" />
+<origin rpy="0.0 0 0" xyz="0 0 0"/>
+</joint>
+<link name="base_arm">
+<visual>
+<origin xyz="-0.4646650665402486946 -0.0001636153445277972805 0.15161238995579387479" rpy="1.5687523408604446828 0.0016736378501496346725 -1.5686984500618550431" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/base_arm.stl"/>
+</geometry>
+<material name="base_arm_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.4646650665402486946 -0.0001636153445277972805 0.15161238995579387479" rpy="1.5687523408604446828 0.0016736378501496346725 -1.5686984500618550431" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/base_arm.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-0.46459449899547694551 -0.00023906490411266005051 0.18876919652515378178" rpy="0 0 0"/>
+<mass value="0.796970290594201769" />
+<inertia ixx="0.0018937774350687825668" ixy="3.1715057130830533953e-07"  ixz="2.9128980616579088583e-06" iyy="0.00189442170570787243" iyz="-2.1318205628353294015e-06" izz="0.003279709775306588037" />
+</inertial>
+</link>
+
+<link name="part_1">
+<visual>
+<origin xyz="-0.27500000000000007772 -0.35523499999999996746 -0.015999999999999986455" rpy="1.570796326794896558 5.4810147827190357192e-21 -3.07250196494817565e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/part_1.stl"/>
+</geometry>
+<material name="part_1_material">
+<color rgba="0.96470588235294119084 0.83921568627450982003 0.65882352941176469674 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.27500000000000007772 -0.35523499999999996746 -0.015999999999999986455" rpy="1.570796326794896558 5.4810147827190357192e-21 -3.07250196494817565e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/part_1.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="6.248885116155733499e-05 -0.080558461654688162668 -0.0079999999999999880235" rpy="0 0 0"/>
+<mass value="2.0244713602260744345" />
+<inertia ixx="0.051204003604653276771" ixy="-1.019120040765536658e-05"  ixz="-1.7218100877920531097e-20" iyy="0.051239503210332056071" iyz="-2.3662016220195293046e-20" izz="0.10235712937028232372" />
+</inertial>
+</link>
+
+<joint name="base_link" type="fixed">
+<origin xyz="-0.46466506654024858358 -0.000163615344527801021 0.15161238995579387479" rpy="0.0016736413462769823661 0.0020439830717812208088 0.0021012976284340094922" />
+<parent link="base_arm" />
+<child link="part_1" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="first_rotation_joint">
+<visual>
+<origin xyz="0 1.626303258728256651e-19 -0.02149999999999999134" rpy="1.570796326794896558 -3.7601060181232215942e-20 6.9101783653844721472e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/first_rotation_joint.stl"/>
+</geometry>
+<material name="first_rotation_joint_material">
+<color rgba="0.4000000000000000222 0.71764705882352941568 1 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 1.626303258728256651e-19 -0.02149999999999999134" rpy="1.570796326794896558 -3.7601060181232215942e-20 6.9101783653844721472e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/first_rotation_joint.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0.00044529763584806662498 4.15239322418236977e-09 -0.012814408936495347638" rpy="0 0 0"/>
+<mass value="0.40972696994728929898" />
+<inertia ixx="0.00079540594431736009844" ixy="1.3501768338034987525e-10"  ixz="5.0688935105353722989e-07" iyy="0.0008004606721654807357" iyz="-7.1877057951604617615e-13" izz="0.0015507961686107435417" />
+</inertial>
+</link>
+
+<link name="first_joint_addon">
+<visual>
+<origin xyz="-0.079999999999999960032 0.080000000000000015543 -0.020000000000000017764" rpy="-1.570796326794896558 5.9439070095311881549e-19 7.3207867561217398773e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/first_joint_addon.stl"/>
+</geometry>
+<material name="first_joint_addon_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.079999999999999960032 0.080000000000000015543 -0.020000000000000017764" rpy="-1.570796326794896558 5.9439070095311881549e-19 7.3207867561217398773e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/first_joint_addon.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="4.4652326254557284102e-07 -1.5962977502170794253e-05 -0.075710239358292755196" rpy="0 0 0"/>
+<mass value="1.5894255821827871777" />
+<inertia ixx="0.0077672664615614176592" ixy="-1.4062706561669128742e-07"  ixz="-1.6325041671450394518e-08" iyy="0.0096942600257889158244" iyz="4.7215893728055686935e-07" izz="0.0063344664589239964292" />
+</inertial>
+</link>
+
+<link name="2m2">
+<visual>
+<origin xyz="2.168404344971008868e-19 0 -0.047499999999999931166" rpy="-1.5707963267948952257 7.571174972521259963e-17 3.141592653589793116" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_2.stl"/>
+</geometry>
+<material name="second_joint_2_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="2.168404344971008868e-19 0 -0.047499999999999931166" rpy="-1.5707963267948952257 7.571174972521259963e-17 3.141592653589793116" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_2.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="2.168404344971008868e-19 0 -0.047499999999999931166" rpy="1.570796326794896558 -5.8348589970490726514e-20 -8.5476012125190999555e-22" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_1.stl"/>
+</geometry>
+<material name="second_joint_1_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="2.168404344971008868e-19 0 -0.047499999999999931166" rpy="1.570796326794896558 -5.8348589970490726514e-20 -8.5476012125190999555e-22" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_1.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="8.8040689465897586344e-05 0.0083286196826316636482 -0.047499909270740874045" rpy="0 0 0"/>
+<mass value="1.2677926162209203209" />
+<inertia ixx="0.0025282537454157216067" ixy="9.2961645278031229709e-07"  ixz="-8.4677217268030927739e-09" iyy="0.0020376099105214795157" iyz="1.0785868845708133836e-09" izz="0.0027779672092827006544" />
+</inertial>
+</link>
+
+<link name="second_joint_addon">
+<visual>
+<origin xyz="-0.06500000038924302892 0.047500000000145307932 -5.5511151231257827021e-17" rpy="-1.570796326794896558 1.4732164004551520321e-19 -8.6227349543755717141e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_addon.stl"/>
+</geometry>
+<material name="second_joint_addon_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.06500000038924302892 0.047500000000145307932 -5.5511151231257827021e-17" rpy="-1.570796326794896558 1.4732164004551520321e-19 -8.6227349543755717141e-20" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/second_joint_addon.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0.0010405000061411845413 6.6138456074185669742e-05 -0.08636850828989557638" rpy="0 0 0"/>
+<mass value="0.96471451021147269778" />
+<inertia ixx="0.0032527122304973508579" ixy="1.3003193428778121476e-06"  ixz="-1.2148747532131257376e-05" iyy="0.00428969716945675969" iyz="-1.20098653713445991e-06" izz="0.0021807615331633999588" />
+</inertial>
+</link>
+
+<link name="3m2">
+<visual>
+<origin xyz="-0.12750000000000005773 -0.035000000000000003331 -0.036749999999999893863" rpy="1.570796326794896558 1.2188828651059198102e-19 1.6453262982035958191e-21" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_3_extension_2.stl"/>
+</geometry>
+<material name="joint_3_extension_2_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.12750000000000005773 -0.035000000000000003331 -0.036749999999999893863" rpy="1.570796326794896558 1.2188828651059198102e-19 1.6453262982035958191e-21" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_3_extension_2.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="-0.12750000000000083489 0.035000000000000149047 -0.036749999999999727329" rpy="-1.5707963267948950037 6.3398084577282735164e-16 -2.5887428273641422088e-17" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_3_extension_1.stl"/>
+</geometry>
+<material name="joint_3_extension_1_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.12750000000000083489 0.035000000000000149047 -0.036749999999999727329" rpy="-1.5707963267948950037 6.3398084577282735164e-16 -2.5887428273641422088e-17" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_3_extension_1.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-0.037983987830921737971 -8.5299288051911205822e-05 -0.037107731399319263121" rpy="0 0 0"/>
+<mass value="0.8183071176136128555" />
+<inertia ixx="0.00082314962434092771477" ixy="7.4902563956732444418e-07"  ixz="-1.1546214248463009916e-05" iyy="0.0023962518734252039737" iyz="2.3240084156411385449e-08" izz="0.0024478923836552431148" />
+</inertial>
+</link>
+
+<link name="joint_4_rotation">
+<visual>
+<origin xyz="-0.050000000000000002776 -0.045000000000000039968 0" rpy="-1.570796326794896558 1.0291365075785211098e-21 -2.0622085043554310423e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_rotation.stl"/>
+</geometry>
+<material name="joint_4_rotation_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.050000000000000002776 -0.045000000000000039968 0" rpy="-1.570796326794896558 1.0291365075785211098e-21 -2.0622085043554310423e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_rotation.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-0.00088868284847058026665 4.4505582922876874008e-05 -0.051737099766823280156" rpy="0 0 0"/>
+<mass value="0.32668926310782331335" />
+<inertia ixx="0.00073926641285090995918" ixy="2.3834223058213982236e-07"  ixz="1.2264064792111141101e-05" iyy="0.00063219465590345436459" iyz="8.0033536661282267653e-07" izz="0.00036064837158766534838" />
+</inertial>
+</link>
+
+<link name="4m2">
+<visual>
+<origin xyz="0 0 -0.024000000000000021316" rpy="1.570796326794896558 -3.3124796433902785423e-20 1.3223261318870114001e-21" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_extension_2.stl"/>
+</geometry>
+<material name="joint_4_extension_2_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 -0.024000000000000021316" rpy="1.570796326794896558 -3.3124796433902785423e-20 1.3223261318870114001e-21" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_extension_2.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="0 0 -0.024000000000000021316" rpy="-1.57079632679489678 -1.0298851025938093682e-16 3.141592653589793116" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_extension_1.stl"/>
+</geometry>
+<material name="joint_4_extension_1_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="0 0 -0.024000000000000021316" rpy="-1.57079632679489678 -1.0298851025938093682e-16 3.141592653589793116" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/joint_4_extension_1.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="5.0824071205765382913e-09 0.0037997964547205631027 -0.024382174693164542639" rpy="0 0 0"/>
+<mass value="0.19713515321446248296" />
+<inertia ixx="0.00011145079102691963775" ixy="-2.7379169765867547811e-11"  ixz="1.7420221741763988886e-11" iyy="9.3510003619651742421e-05" iyz="7.7434547481564258318e-07" izz="0.0001324417756730326013" />
+</inertial>
+</link>
+
+<link name="bottom_plate">
+<visual>
+<origin xyz="-0.041999999999934256589 0.011000000000000002831 -0.049000000000011034729" rpy="-3.141592653589793116 1.4433298608307604652e-16 2.1729299937978887039e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/bottom_plate.stl"/>
+</geometry>
+<material name="bottom_plate_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.041999999999934256589 0.011000000000000002831 -0.049000000000011034729" rpy="-3.141592653589793116 1.4433298608307604652e-16 2.1729299937978887039e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/bottom_plate.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-0.01270734080403587013 0.0052594441438101446201 -0.018276766309883989842" rpy="0 0 0"/>
+<mass value="0.020184747174305468775" />
+<inertia ixx="4.6015550759436284794e-06" ixy="1.1839939209269050391e-07"  ixz="-8.4867934464130077018e-08" iyy="9.879926213123182475e-06" iyz="6.2683267271515183653e-07" izz="6.3567696338050100774e-06" />
+</inertial>
+</link>
+
+<joint name="hand_1" type="fixed">
+<origin xyz="0.01500000000000000118 0.040999999999999814371 -0.012000000000000010658" rpy="1.5707963267948923392 -1.5707963267948894526 0" />
+<parent link="4m2" />
+<child link="bottom_plate" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="top_plate">
+<visual>
+<origin xyz="-0.041999999999999981792 0.010999999999999999362 -0.049000000000011145751" rpy="3.141592653589793116 2.4284950189297398543e-19 -1.4065861165957754226e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/top_plate.stl"/>
+</geometry>
+<material name="top_plate_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.041999999999999981792 0.010999999999999999362 -0.049000000000011145751" rpy="3.141592653589793116 2.4284950189297398543e-19 -1.4065861165957754226e-19" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/top_plate.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="-0.0050000000000000044409 0.017000000000000105305 -0.04400000000001114131" rpy="3.1415926535897846783 0.67334963877340991978 5.3939957386632308862e-16" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/pivot_arm_idol.stl"/>
+</geometry>
+<material name="pivot_arm_idol_material">
+<color rgba="0.058823529411764705066 0.64705882352941179736 1 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.0050000000000000044409 0.017000000000000105305 -0.04400000000001114131" rpy="3.1415926535897846783 0.67334963877340991978 5.3939957386632308862e-16" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/pivot_arm_idol.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="-0.011877876797433430806 0.0060993909455488706448 -0.018172711612454914287" rpy="0 0 0"/>
+<mass value="0.019844665757248584198" />
+<inertia ixx="4.5188120155432283875e-06" ixy="-5.7668667659287202625e-09"  ixz="1.4137196497201377568e-08" iyy="8.6540626647512012865e-06" iyz="7.2283660476255337067e-07" izz="5.0864412574210678776e-06" />
+</inertial>
+</link>
+
+<link name="servo_gear">
+<visual>
+<origin xyz="-0.040000000000000035527 1.1102230246251565404e-16 -0.0060000000000000001249" rpy="1.570796326794896558 8.3585135220933203883e-20 9.8002568410748983171e-18" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/servo_gear.stl"/>
+</geometry>
+<material name="servo_gear_material">
+<color rgba="0.4000000000000000222 0.71764705882352941568 1 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.040000000000000035527 1.1102230246251565404e-16 -0.0060000000000000001249" rpy="1.570796326794896558 8.3585135220933203883e-20 9.8002568410748983171e-18" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/servo_gear.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="-0.052989399045556995205 0.010024957788359711852 -0.012249999999999997002" rpy="1.57079632679489678 2.1131725751064343561e-16 -1.570796326794896336" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/gripper_left.stl"/>
+</geometry>
+<material name="gripper_left_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.052989399045556995205 0.010024957788359711852 -0.012249999999999997002" rpy="1.57079632679489678 2.1131725751064343561e-16 -1.570796326794896336" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/gripper_left.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<mass value="0" />
+<inertia ixx="0" ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+</inertial>
+</link>
+
+<joint name="servo_grip" type="revolute">
+<origin xyz="-0.026000000000000023093 0.010999999999999950789 -0.024000000000011456613" rpy="1.570796326794896558 -0.67334963877345765937 3.3883770676926680189e-15" />
+<parent link="top_plate" />
+<child link="servo_gear" />
+<axis xyz="0 0 1"/>
+<limit effort="1.0" velocity="20.0" lower="-1.570796326794896558" upper="0.15"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<link name="pivot_arm_servo">
+<visual>
+<origin xyz="-0.039999999999999924505 1.1102230246251565404e-16 -0.0059999999999999992575" rpy="1.570796326794896558 8.6039101533806729308e-20 -7.0606459728154216907e-18" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/pivot_arm_servo.stl"/>
+</geometry>
+<material name="pivot_arm_servo_material">
+<color rgba="0.058823529411764705066 0.64705882352941179736 1 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.039999999999999924505 1.1102230246251565404e-16 -0.0059999999999999992575" rpy="1.570796326794896558 8.6039101533806729308e-20 -7.0606459728154216907e-18" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/pivot_arm_servo.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<mass value="0" />
+<inertia ixx="0" ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+</inertial>
+</link>
+
+<joint name="pivot_servo_grip" type="revolute">
+<origin xyz="-0.019000000000000016875 0.010999999999999763439 -0.044000000000011807444" rpy="1.570796326794896558 -0.67334963877345743732 3.3961341711575305772e-15" />
+<parent link="top_plate" />
+<child link="pivot_arm_servo" />
+<axis xyz="0 0 1"/>
+<limit effort="1.0" velocity="20.0" lower="-1.570796326794896558" upper="0.0"/>
+<joint_properties friction="0.0"/>
+<mimic joint="servo_grip" multiplier="1" offset="0"/>
+</joint>
+
+<link name="idol_gear">
+<visual>
+<origin xyz="-0.040000000000000063283 0 -0.0060000000000000001249" rpy="1.570796326794896558 2.0657459794197858369e-21 -1.0189289767877371529e-16" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/idol_gear.stl"/>
+</geometry>
+<material name="idol_gear_material">
+<color rgba="0.4000000000000000222 0.71764705882352941568 1 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.040000000000000063283 0 -0.0060000000000000001249" rpy="1.570796326794896558 2.0657459794197858369e-21 -1.0189289767877371529e-16" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/idol_gear.stl"/>
+</geometry>
+</collision>
+<visual>
+<origin xyz="-0.052989399045556884182 -0.010024957788359545319 0.0057500000000000328626" rpy="-1.5707963267948945596 3.224039947253528135e-15 1.5707963267948956698" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/gripper_right.stl"/>
+</geometry>
+<material name="gripper_right_material">
+<color rgba="0.29411764705882353921 0.29411764705882353921 0.29411764705882353921 1.0"/>
+</material>
+</visual>
+<collision>
+<origin xyz="-0.052989399045556884182 -0.010024957788359545319 0.0057500000000000328626" rpy="-1.5707963267948945596 3.224039947253528135e-15 1.5707963267948956698" />
+<geometry>
+<mesh filename="package://bcn3d_description/onshape/gripper_right.stl"/>
+</geometry>
+</collision>
+<inertial>
+<origin xyz="0 0 0" rpy="0 0 0"/>
+<mass value="0" />
+<inertia ixx="0" ixy="0"  ixz="0" iyy="0" iyz="0" izz="0" />
+</inertial>
+</link>
+
+<joint name="idol_grip" type="revolute">
+<origin xyz="0.0019999999999998352429 0.010999999999999834563 -0.024000000000011567636" rpy="-1.570796326794896558 -0.67334963877341025285 -3.1415926535897900074" />
+<parent link="top_plate" />
+<child link="idol_gear" />
+<axis xyz="0 0 1"/>
+<limit effort="1.0" velocity="20.0" lower="0.0" upper="1.570796326794896558"/>
+<joint_properties friction="0.0"/>
+<mimic joint="servo_grip" multiplier="-1" offset="0"/>
+</joint>
+
+<joint name="hand_2" type="fixed">
+<origin xyz="-0.014999999999999999445 0.041000000000000036415 -0.036000000000000087486" rpy="1.5707963267948998887 1.5707963267948961139 0" />
+<parent link="4m2" />
+<child link="top_plate" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="wrist_pitch" type="revolute">
+<origin xyz="-2.710505431213761085e-17 -0.024999999999998523403 -0.094999999999999862332" rpy="-1.570796326794896558 -8.0738648818168528854e-15 -3.1415926535897868987" />
+<parent link="joint_4_rotation" />
+<child link="4m2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.7453292519943295336" upper="1.7453292519943295336"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="wrist_roll" type="revolute">
+<origin xyz="-0.12750000000000016875 -6.7220534694101274908e-18 -0.036749999999999893863" rpy="-1.570796326794896558 -5.6751332091324823609e-15 -1.5707963267948972241" />
+<parent link="3m2" />
+<child link="joint_4_rotation" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.9198621771937625091" upper="1.9198621771937625091"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="elbow" type="revolute">
+<origin xyz="-0.03950000038924295076 1.4531366561432168538e-13 -0.14259999999999994902" rpy="-1.2714344194941646645e-15 -1.5707963267948947816 0" />
+<parent link="second_joint_addon" />
+<child link="3m2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.7453292519943295336" upper="1.7453292519943295336"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder_to_upperarm" type="fixed">
+<origin xyz="4.7704895589362195096e-18 0.078523792803564307352 -0.047499999999999986677" rpy="1.570796326794896336 1.570796326794896558 0" />
+<parent link="2m2" />
+<child link="second_joint_addon" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="shoulder" type="revolute">
+<origin xyz="-0.048250000000000015099 2.710505431213761085e-18 -0.13999999999999995781" rpy="-1.570796326794896558 0.0016533218473255366886 1.570796326794896558" />
+<parent link="first_joint_addon" />
+<child link="2m2" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.7453292519943295336" upper="1.7453292519943295336"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="human_to_shoulder" type="fixed">
+<origin xyz="0.0022823469315520483747 6.1582683397176651852e-17 -0.025500000000000022649" rpy="2.0003644389093280288e-16 -8.2774770384659868354e-18 5.4091285333010455186e-17" />
+<parent link="first_rotation_joint" />
+<child link="first_joint_addon" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" />
+<joint_properties friction="0.0"/>
+</joint>
+
+<joint name="joint1_human_body" type="revolute">
+<origin xyz="-0.46453197961954961759 -0.00027212256577826041777 0.21661216314043268971" rpy="-3.139925792323495557 0.0020495159579889737564 -0.001211310223060350303" />
+<parent link="base_arm" />
+<child link="first_rotation_joint" />
+<axis xyz="0 0 1"/>
+<limit effort="1" velocity="20" lower="-1.9198621771937625091" upper="1.9198621771937625091"/>
+<joint_properties friction="0.0"/>
+</joint>
+
+
+</robot>

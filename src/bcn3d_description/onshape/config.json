@@ -1,0 +1,22 @@
+{
+    "documentId": "0d89147b68478e45bcc41d3c",
+    "workspaceId": "6129432340d6ad4b27201036",
+
+    "outputFormat": "urdf",
+    "robotName": "bcn3d_moveo",
+
+    "assemblyName": "Assembly 1",
+
+    "drawCollisions": false,
+    "drawFrames": false,
+    "useScads": false,
+    "useFixedLinks": false,
+    "ignoreLimits": false,
+
+    "mergeSTLs": "no",
+    "simplifySTLs": "no",
+    "maxSTLSize": 3,
+
+    "packageName": "bcn3d_description/onshape",
+    "addDummyBaseLink": true
+}
