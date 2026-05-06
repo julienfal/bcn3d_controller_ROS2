@@ -26,7 +26,7 @@ def generate_launch_description():
     )
     world_arg = DeclareLaunchArgument(
         "world",
-        default_value="/usr/share/gazebo-11/worlds/empty.world",
+        default_value=os.path.join(pkg_bcn3d_gazebo, "worlds", "pick_place.world"),
         description="Gazebo world file",
     )
 
