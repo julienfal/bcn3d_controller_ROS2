@@ -39,6 +39,8 @@ int main(int argc, char ** argv)
   arm.setNumPlanningAttempts(10);
   arm.setGoalPositionTolerance(0.03);
 
+
+
   RCLCPP_INFO(logger, "Planning frame: %s", arm.getPlanningFrame().c_str());
   RCLCPP_INFO(logger, "End-effector link: %s", arm.getEndEffectorLink().c_str());
 
@@ -58,9 +60,6 @@ int main(int argc, char ** argv)
     current_pose.pose.position.x,
     current_pose.pose.position.y,
     current_pose.pose.position.z);
-
-  arm.setStartStateToCurrentState();
-  arm.setPositionTarget(-0.23, -0.55, 0.50, tip_link);
 
 
 // Create collision object for the robot to avoid
@@ -90,43 +89,67 @@ auto const collision_objects = [frame_id =
 
   collision_objects.push_back(table);
 
-  moveit_msgs::msg::CollisionObject red_cube;
-  red_cube.header.frame_id = frame_id;
-  red_cube.id = "red_cube";
+  // moveit_msgs::msg::CollisionObject red_cube;
+  // red_cube.header.frame_id = frame_id;
+  // red_cube.id = "red_cube";
 
-  shape_msgs::msg::SolidPrimitive cube_box;
-  cube_box.type = shape_msgs::msg::SolidPrimitive::BOX;
-  cube_box.dimensions.resize(3);
-  cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = 0.05;
-  cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = 0.05;
-  cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = 0.05;
+  // shape_msgs::msg::SolidPrimitive cube_box;
+  // cube_box.type = shape_msgs::msg::SolidPrimitive::BOX;
+  // cube_box.dimensions.resize(3);
+  // cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_X] = 0.05;
+  // cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Y] = 0.05;
+  // cube_box.dimensions[shape_msgs::msg::SolidPrimitive::BOX_Z] = 0.05;
 
-  geometry_msgs::msg::Pose cube_pose;
-  cube_pose.orientation.w = 1.0;
-  cube_pose.position.x = -0.23;
-  cube_pose.position.y = -0.55;
-  cube_pose.position.z = 0.395;
+  // geometry_msgs::msg::Pose cube_pose;
+  // cube_pose.orientation.w = 1.0;
+  // cube_pose.position.x = -0.23;
+  // cube_pose.position.y = -0.55;
+  // cube_pose.position.z = 0.395;
 
-  red_cube.primitives.push_back(cube_box);
-  red_cube.primitive_poses.push_back(cube_pose);
-  red_cube.operation = red_cube.ADD;
+  // red_cube.primitives.push_back(cube_box);
+  // red_cube.primitive_poses.push_back(cube_pose);
+  // red_cube.operation = red_cube.ADD;
 
-  collision_objects.push_back(red_cube);
+  // collision_objects.push_back(red_cube);
 
   return collision_objects;
 }();
-
   // Add the collision object to the scene
   moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
   planning_scene_interface.applyCollisionObjects(collision_objects);
 
+  gripper.setNamedTarget("gripper_open");
+  gripper.move();
+
+  arm.setStartStateToCurrentState();
+  arm.setPositionTarget(-0.23, -0.55, 0.50, tip_link);
+
 
   MoveGroupInterface::Plan plan;
+  MoveGroupInterface::Plan gripper_plan;
+
   if (arm.plan(plan) == moveit::core::MoveItErrorCode::SUCCESS) {
     arm.execute(plan);
   } else {
     RCLCPP_WARN(logger, "Could not reach target");
   }
+
+  if (gripper.plan(gripper_plan) == moveit::core::MoveItErrorCode::SUCCESS) {
+    gripper.execute(gripper_plan);
+  } else {
+    RCLCPP_WARN(logger, "Could not reach target");
+  }
+
+  gripper.setNamedTarget("gripper_closed");
+  // gripper.move();
+
+
+  if (gripper.plan(gripper_plan) == moveit::core::MoveItErrorCode::SUCCESS) {
+    gripper.execute(gripper_plan);
+  } else {
+    RCLCPP_WARN(logger, "Could not reach target");
+  }
+
 
   RCLCPP_INFO(logger, "Demo complete.");
   executor.cancel();
