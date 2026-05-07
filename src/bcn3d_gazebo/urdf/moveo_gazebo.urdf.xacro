@@ -133,7 +133,7 @@
     <plugin name="mimic_tip_idol" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
       <joint>Gripper_Servo_Gear_Joint</joint>
       <mimicJoint>Tip_Gripper_Idol_Joint</mimicJoint>
-      <multiplier>-1.0</multiplier>
+      <multiplier>1.0</multiplier>
       <offset>0.0</offset>
       <maxEffort>2.0</maxEffort>
       <sensitiveness>0.003</sensitiveness>
