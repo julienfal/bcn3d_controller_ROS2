@@ -755,14 +755,14 @@
        real realsense2_camera driver's TF tree. -->
 
   <!-- Camera DISABLED for now — realsense xacro bloats URDF past rcl's CLI parser limit.
-       Re-enable when gazebo_ros2_control can handle a larger URDF.
-  <xacro:sensor_d435 parent="Link_5" name="camera" use_nominal_extrinsics="true">
+       Re-enable when gazebo_ros2_control can handle a larger URDF. -->
+  <xacro:sensor_d435 parent="Link_5" name="d435" use_nominal_extrinsics="true" use_mesh="true">
     <origin xyz="-0.04 0 0.06" rpy="0 -0.65 3.1416"/>
   </xacro:sensor_d435>
-  -->
+  
 
   <!-- Tiny placeholder camera_link so other code that references it still finds the frame -->
-  <link name="camera_link">
+  <!-- <link name="camera_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="0.001"/>
@@ -773,7 +773,7 @@
     <origin xyz="-0.04 0 0.06" rpy="0 -0.65 3.1416"/>
     <parent link="Link_5"/>
     <child link="camera_link"/>
-  </joint>
+  </joint> -->
 
 </robot>
 
