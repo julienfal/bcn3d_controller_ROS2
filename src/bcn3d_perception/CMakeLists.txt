@@ -12,22 +12,41 @@ find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(OpenCV REQUIRED)
+find_package(image_geometry REQUIRED)
+find_package(geometry_msgs REQUIRED)
+
+
+add_library(perception_library src/filter_color.cpp)
+
+target_include_directories(perception_library
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+
+ament_target_dependencies(perception_library
+  rclcpp
+  sensor_msgs
+  cv_bridge
+)
+
+target_link_libraries(perception_library
+  ${OpenCV_LIBS}
+)
 
 add_executable(red_cube_detector src/red_cube_detector.cpp)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
 
 ament_target_dependencies(red_cube_detector
   rclcpp
   sensor_msgs
   std_msgs
   cv_bridge
-  OpenCV
+  image_geometry
+  geometry_msgs
 )
 
 target_link_libraries(red_cube_detector
-  ${OpenCV_LIBS}
+  perception_library
 )
 
 install(TARGETS red_cube_detector
